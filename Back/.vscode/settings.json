@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./TestAppBack/django-rest-framework"
+    ]
+}
