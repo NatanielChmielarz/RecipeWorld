@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'core',
+    'rest_framework_simplejwt',
+    'user_app'
 ]
 
 MIDDLEWARE = [
@@ -104,7 +106,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':     ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',),
+}
+
+SIMPLE_JWT = {
+     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=30),
+     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
+AUTH_USER_MODEL = 'core.User'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
